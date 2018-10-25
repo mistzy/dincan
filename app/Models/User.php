@@ -27,6 +27,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\\App\Models\User whereShopId($value)
  * @method static \Illuminate\Database\Eloquent\\App\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\Shopp $shopp
  */
 class User extends Authenticatable
 {

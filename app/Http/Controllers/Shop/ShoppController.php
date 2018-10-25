@@ -11,6 +11,14 @@ use Illuminate\Support\Facades\Auth;
 
 class ShoppController extends BaseController
 {
+
+    public function index(){
+        $data= Shopp::all();
+        //显示视图并传递数据
+        return view("shop.shopp.index",compact('data'));
+
+
+    }
     //
     public function add(Request $request){
 
@@ -26,12 +34,13 @@ class ShoppController extends BaseController
 
             //2. 接收数据
             $data=$request->post();
+
             //3.设置店铺状态为0 未审核
             $data['status'] = 0;
             //设置用户id
             $data['user_id'] = Auth::user()->id;
             //接收图片
-            $data['shop_img']=$request->file("shop_img")->store("images","image");
+            $data['shop_img']=$request->file("shop_img")->store("images");
 //         dd($data);
             //3. 入库
             Shopp::create($data);
@@ -39,11 +48,11 @@ class ShoppController extends BaseController
             session()->flash('success',"添加成功等待审核");
 
             //4. 跳转
-            return redirect()->route("shop.shopp.index");
+            return redirect()->route("shop.index.index");
 
         }
-        //得到所有分类F
-        $fleis= ShopCategory::all();
+        //得到所有分类
+        $fleis= ShopCategory::where("status",1)->get();
         return view("shop.shopp.add",compact("fleis"));
     }
 

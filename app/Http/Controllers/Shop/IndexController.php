@@ -14,6 +14,7 @@ class IndexController extends BaseController
             //跳转到添加店铺
             return redirect()->route("shop.shopp.add")->with("danger","你还没有创建店铺");
         }
+
         return view("shop.index.index");
 
     }

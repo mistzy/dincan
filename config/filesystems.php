@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DRIVER', 'local'),
+    'default' => env('FILESYSTEM_DRIVER', 'public'),
 
     /*
     |--------------------------------------------------------------------------
@@ -47,18 +47,18 @@ return [
             'driver' => 'local',
             'root' => storage_path('app'),
         ],
-        'image' => [
-            'driver' => 'local',
-            'root' => public_path(),//设置public路径
-        ],
-
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
-            'visibility' => 'public',
+            'root' => public_path('images'),
         ],
+//
+//        'public' => [
+//            'driver' => 'local',
+//            'root' => storage_path('app/public'),
+//            'url' => env('APP_URL').'/storage',
+//            'visibility' => 'public',
+//        ],
 
         's3' => [
             'driver' => 's3',

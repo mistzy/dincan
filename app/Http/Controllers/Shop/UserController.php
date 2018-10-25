@@ -42,7 +42,6 @@ class UserController extends BaseController
                 "password" => "required"
             ]);
 
-
             //2. 验证账号密码是否正确
             // dd(Auth::attempt(["name"=>$request->post('name'),"password"=>$request->post("password")]));
 //              if (Auth::guard("")->attempt($data)){
