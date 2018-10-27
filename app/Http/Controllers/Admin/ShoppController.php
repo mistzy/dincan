@@ -22,54 +22,127 @@ class ShoppController extends BaseController
     public function sh($id){
 
         $shop =Shopp::findOrFail($id);
-        $shop->static = 1;
+        $shop->status= 1;
+        $shop->save();
         //返回视图
         return back()->with("success", "通过审核");
+    }
+    public function jy($id){
+
+        $shop =Shopp::findOrFail($id);
+        $shop->status= 2;
+        $shop->save();
+        //返回视图
+        return back()->with("success", "你已被禁用");
     }
 
     //修改店铺
     public function edit(Request $request,$id)
-    {
-        //找一个
-        $shops =Shopp::find($id);
+{
+    //找一个
+    $shop =Shopp::find($id);
 
-        //判断post
-        if ($request->isMethod("post")) {
-            //dd($request->all());
-            //健壮性
+    //判断post
+    if ($request->isMethod("post")) {
+        //dd($request->all());
+        //健壮性
+        $this->validate($request, [
+
+        ]);
+        //添加
+        $data = $request->post();
+        //接收图片
+        $logo = $request->file("shop_img");
+        if ($logo) {
+            //删除原来图片
+            Storage::delete($shop['shop_img']);
+            //赋值
+            $data['shop_img'] = $logo->store("images");
+//
+        }
+        //入库
+//            $data['shop_category_id']=3;
+//            $data['shop_name']=66;
+        // dd($data);
+        if ($shop->update($data)) {
+            //4. 跳转
+            return redirect()->route("admin.shop.index")->with("success", "编辑成功");
+        }
+    }
+
+    //显示视图
+    $cates= ShopCategory::all();
+    return view('admin.shop.edit',compact("shop","cates"));
+
+}
+
+//    public function add(Request $request,$id){
+//
+//
+//            if ($request->isMethod("post")){
+//                //1. 验证
+//                $this->validate($request,[
+//
+//                ]);
+//
+//                //2. 接收数据
+//                $data=$request->post();
+//
+//                //3.设置店铺状态为0 未审核
+//                $data['status'] = 0;
+//                //设置用户id
+//                $data['user_id'] = Auth::user()->id;
+//                //接收图片
+//                $data['shop_img']=$request->file("shop_img")->store("images");
+////         dd($data);
+//                //3. 入库
+//                Shopp::create($data);
+//                //添加成功
+//                session()->flash('success',"添加成功等待审核");
+//
+//                //4. 跳转
+//                return redirect()->route("shop.index.index");
+//
+//            }
+//            //得到所有分类
+//            $fleis= ShopCategory::where("status",1)->get();
+//            return view("shop.shopp.add",compact("fleis"));
+//      }
+//后台添加店铺
+    public function add(Request $request,$id)
+    {
+        //得到所有店铺分类信息
+        $shop = ShopCategory::all();
+//        //得到所有商家信息
+//        $users = User::all();
+        //post提交
+        if ($request->isMethod('post')) {
+
+            //验证数据
             $this->validate($request, [
 
             ]);
-            //添加
+            //接受数据
             $data = $request->post();
-            //接收图片
-            $logo = $request->file("shop_img");
-            if ($logo) {
-                //删除原来图片
-                Storage::delete($shops['shop_img']);
-                //赋值
-                $data['shop_img'] = $logo->store("images");
-//
+            $data['user_id']=$id;
+            $data['status']=1;
+            //接受图片
+            $data['shop_img']=$request->file("shop_img")->store("images");
+            //提交数据
+            if (Shopp::create($data)) {
+                //提示
+                session()->flash('success', '添加成功');
+                return redirect()->route('admin.user.index');
             }
-            //入库
-//            $data['shop_category_id']=3;
-//            $data['shop_name']=66;
-            if ($shops->update($data)) {
-                //4. 跳转
-                return redirect()->route("admin.shop.index")->with("success", "编辑成功");
-            }
-
-
-
 
         }
-
-            //显示视图
-            $fleis= ShopCategory::where("status",1)->get();
-            return view('admin.shop.edit',compact("shops","fleis"));
-
-
+        //显示视图
+        $cates= ShopCategory::all();
+        return view('admin.shop.add', compact('shop',"cates"));
     }
+
+
+
 
     //删除店铺
     public function del($id){

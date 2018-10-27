@@ -22,11 +22,32 @@ Route::domain("shop.diancan.com")->namespace("Shop")->group(function (){
     //商家注册登陆
     Route::any("/user/login", "UserController@login")->name("shop.user.login");
     Route::any("/user/add","UserController@add")->name("shop.user.add");
+    Route::any('user/edit', "UserController@edit")->name('shop.user.edit');
+    Route::get('user/logout', "UserController@logout")->name('shop.user.logout');
 
 
     //商铺增删改查
     Route::any("/shopp/add","ShoppController@add")->name("shop.shopp.add");
     Route::get("/shopp/index", "ShoppController@index")->name("shop.shopp.index");
+    Route::any('/shopp/edit/{id}', "ShoppController@edit")->name('shop.shopp.edit');
+
+
+    //菜单分类增删改查
+    Route::get('cate/index', "MenuCategoriesController@index")->name('shop.cate.index');
+    Route::any("cate/add","MenuCategoriesController@add")->name("shop.cate.add");
+    Route::any("cate/edit/{id}","MenuCategoriesController@edit")->name("shop.cate.edit");
+    Route::get('cate/del/{id}', "MenuCategoriesController@del")->name('shop.cate.del');
+
+
+    //菜品增删改查
+    Route::get("menu/index","MenuController@index")->name("shop.menu.index");
+    Route::any("menu/add","MenuController@add")->name("shop.menu.add");
+    Route::any("menu/edit/{id}","MenuController@edit")->name("shop.menu.edit");
+    Route::get("menu/del/{id}","MenuController@del")->name("shop.menu.del");
+
+
+
+
 
 
 });
@@ -41,22 +62,31 @@ Route::domain("admin.diancan.com")->namespace("Admin")->group(function (){
     Route::get('shop_category/del/{id}', "ShopCategoryController@del")->name('admin.shop_category.del');
 
 
-    //管理员登录
+    //管理员登录/退出
     Route::any('admin/login', "AdminController@login")->name('admin.admin.login');
+    Route::get('admin/logout', "AdminController@logout")->name('admin.admin.logout');
+
+    //管理员增删改查
     Route::get('admin/index', "AdminController@index")->name('admin.admin.index');
     Route::any('admin/add', "AdminController@add")->name('admin.admin.add');
+    Route::any('admin/editl/{id}', "AdminController@editl")->name('admin.admin.editl');
     Route::get('admin/del/{id}', "AdminController@del")->name('admin.admin.del');
+    //管理员修改密码
+    Route::any('admin/edit', "AdminController@edit")->name('admin.admin.edit');
 
 
     //店铺处理
     Route::get('shop/index', "ShoppController@index")->name('admin.shop.index');
+    Route::any('shop/add/{id}', "ShoppController@add")->name('admin.shop.add');
     Route::any('shop/edit/{id}', "ShoppController@edit")->name('admin.shop.edit');
     Route::get('shop/del/{id}', "ShoppController@del")->name('admin.shop.del');
     Route::get('shop/sh/{id}', "ShoppController@sh")->name('admin.shop.sh');
+    Route::get('shop/jy/{id}', "ShoppController@jy")->name('admin.shop.jy');
 
 
     //用户处理
     Route::get('user/index', "UserController@index")->name('admin.user.index');
+    Route::get('user/del/{id}', "UserController@del")->name('admin.user.del');
 
 
 

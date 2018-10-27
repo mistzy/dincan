@@ -43,23 +43,23 @@
 
                             </ul>
                         </li>
-
                     </ul>
 
 
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">首页</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul>
-                </li>
+                @auth("admin")
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{\Illuminate\Support\Facades\Auth::guard("admin")->user()->name}}  <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{route("admin.admin.edit")}}">修改密码</a></li>
+
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{route("admin.admin.logout")}}">退出登录</a></li>
+                        </ul>
+                    </li>
+                @endauth
+
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

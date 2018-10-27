@@ -1,6 +1,6 @@
 @extends("shop.layouts.main")
 
-@section("title","店铺修改")
+@section("title","店铺添加")
 
 @section("content")
     <a href="{{url()->previous()}}">返回</a>
@@ -9,13 +9,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">店铺名称</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control"  name="shop_name" value="{{$shop->shop_name}}">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">评分</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control"  name="shop_rating" value="{{$shop->shop_rating}}">
+                <input type="text" class="form-control"  name="shop_name" value="{{old("name")}}">
             </div>
         </div>
         <div class="form-group">
@@ -33,7 +27,6 @@
             <label class="col-sm-2 control-label">店铺图片</label>
             <div class="col-sm-10">
                 <input type="file" class="form-control"  name="shop_img">
-                <img src="/images/{{$shop->shop_img}}" height="30" width="30">
             </div>
 
         </div>
@@ -41,21 +34,21 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">起送价格</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control"  name="start_send" value="{{$shop->start_send}}">
+                <input type="text" class="form-control"  name="start_send" value="{{old("price")}}">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">配送费</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control"  name="send_cost" value="{{$shop->send_cost}}">
+                <input type="text" class="form-control"  name="send_cost" value="{{old("price")}}">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">店铺公告</label>
             <div class="col-sm-10">
-               <textarea name="notice" class="form-control" >{{$shop->notice}}
+               <textarea name="notice" class="form-control">
                </textarea>
             </div>
         </div>
@@ -63,7 +56,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">优惠信息</label>
             <div class="col-sm-10">
-               <textarea name="discount" class="form-control" >{{$shop->discount}}
+               <textarea name="discount" class="form-control">
                </textarea>
             </div>
         </div>
@@ -74,7 +67,7 @@
                     <label><input name="on_time" type="checkbox" value="1" @if(old('on_time')==1) checked @endif/>准时送达 </label>
                     <label><input name="fengniao" type="checkbox" value="1" @if(old('fengniao')==1) checked @endif/>蜂鸟配送 </label>
                     <label><input name="bao" type="checkbox" value="1" @if(old('bao')==1) checked @endif/>保 </label>
-                    <label><input name="piao" type="checkbox" value=1" @if(old('piao')==1) checked @endif/>票</label>
+                    <label><input name="piao" type="checkbox" value="1" @if(old('piao')==1) checked @endif/>票</label>
                     <label><input name="zhun" type="checkbox" value="1" @if(old('zhun')==1) checked @endif/>准 </label>
 
             </div>
@@ -83,7 +76,7 @@
 
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">修改</button>
+                <button type="submit" class="btn btn-default">添加</button>
             </div>
         </div>
 

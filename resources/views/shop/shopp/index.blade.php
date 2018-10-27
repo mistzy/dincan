@@ -1,4 +1,4 @@
-@extends("admin.layouts.main")
+@extends("shop.layouts.main")
 
 @section("title","店铺审核")
 
@@ -6,7 +6,8 @@
 
     <table class="table table-bordered">
         <tr>
-        <tr><td>id</td>
+        <tr>
+            <td>名称</td>
             <td>名称</td>
             <td>店铺分类ID</td>
             <td>店铺图片</td>
@@ -22,16 +23,15 @@
             <td>店公告</td>
             <td>优惠信息</td>
             <td>是否审核</td>
-            <td>用户</td>
+
             <td>操作</td>
 
 
         </tr>
-        @foreach($shops as $shop)
             <tr>
                 <td>{{$shop->id}}</td>
                 <td>{{$shop->shop_name}}</td>
-                <td>{{$shop->cate["name"]}}</td>
+                <td>{{$name}}</td>
                 <td><img src="/images/{{$shop->shop_img}}" height="80" width="80"></td>
                 <td>{{$shop->shop_rating}}</td>
                 <td>
@@ -92,18 +92,10 @@
                             <i class="">禁止</i>
                         @endif
                 </td>
-                <td>{{$shop->user["name"]}}</td>
                 <td>
-                    <a href="{{route('admin.shop.edit',$shop->id)}}" class="btn btn-info">编辑</a>
-                    <a href="{{route('admin.shop.del',$shop->id)}}" class="btn btn-danger" onclick="return confirm('删除店铺和用户,确认吗？')">删除</a>
-                    @if($shop->status===0||$shop->status===2)
-                        <a href="{{route('admin.shop.sh',$shop->id)}}" class="btn btn-success">通审</a>
-                    @endif
-                    @if($shop->status===1)
-                        <a href="{{route('admin.shop.jy',$shop->id)}}" class="btn btn-success">禁用</a>
-                    @endif
+                    <a href="{{route('shop.shopp.edit',$shop->id)}}" class="btn btn-info">编辑</a>
                 </td>
             </tr>
-        @endforeach
+
     </table>
 @endsection

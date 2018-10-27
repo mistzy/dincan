@@ -6,6 +6,7 @@ use App\Models\ShopCategory;
 use App\Models\Shopp;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class ShopCategoryController extends BaseController
 {
@@ -52,7 +53,14 @@ class ShopCategoryController extends BaseController
             //添加
             $data = $request->post();
             //接收图片
-            $data['imh']=$request->file("imh")->store("images");
+            $logo = $request->file("imh");
+            if ($logo) {
+                //删除原来图片
+                Storage::delete($shops['imh']);
+                //赋值
+                $data['imh'] = $logo->store("images");
+//
+            }
             if ($shops->update($data)) {
                 //跳转
                 session()->flash("success", "修改成功");
@@ -69,7 +77,7 @@ class ShopCategoryController extends BaseController
         //得到当前分类
         $cate=ShopCategory::findOrFail($id);
         //得到当前分类对应的店铺数
-        $shopCount=Shopp::where('shop_cate_id',$cate->id)->count();
+        $shopCount=Shopp::where('shop_category_id',$cate->id)->count();
         //判断当前分类店铺数
         if ($shopCount){
             //回跳

@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticate;
 
 /**
  * App\Models\Admin
@@ -21,8 +23,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Admin extends Model
+class Admin extends Authenticate
 {
+
     //
     protected $fillable=['name','password','email'];
 }

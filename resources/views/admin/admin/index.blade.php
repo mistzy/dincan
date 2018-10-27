@@ -17,7 +17,7 @@
                 <td>{{$admin->name}}</td>
                 <td>{{$admin->email}}</td>
                 <td>
-                    <a href="" class="btn btn-info">编辑</a>
+                    <a href="{{route('admin.admin.editl',$admin->id)}}" class="btn btn-info">编辑</a>
                     @if($admin->id!==1)
                         <a href="{{route('admin.admin.del',$admin->id)}}" class="btn btn-danger">删除</a>
                     @endif
