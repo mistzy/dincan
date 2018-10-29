@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 //商户路由
@@ -30,6 +30,7 @@ Route::domain("shop.diancan.com")->namespace("Shop")->group(function (){
     Route::any("/shopp/add","ShoppController@add")->name("shop.shopp.add");
     Route::get("/shopp/index", "ShoppController@index")->name("shop.shopp.index");
     Route::any('/shopp/edit/{id}', "ShoppController@edit")->name('shop.shopp.edit');
+    Route::any("/shopp/upload", "MenuController@upload")->name('shop.shopp.upload');
 
 
     //菜单分类增删改查

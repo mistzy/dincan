@@ -15,15 +15,17 @@ class MenuCategoriesController extends BaseController
     {
         $id=Auth::id();
 //        dd($id);
-        $cates=MenuCategories::all()->where("store_id",$id);
+        $dd=MenuCategories::all()->where("shop_id",$id);
+//        dd($dd);
 //        dd($data);
-        return view("shop.cate.index",compact("cates"));
+        return view("shop.cate.index",compact("dd"));
     }
 
 //增加
     public function add(Request $request)
     {
         if($request->isMethod("post")){
+//            dd(11);
 
             $this->validate($request,[
                 "name"=>"required|unique:users",
@@ -33,7 +35,8 @@ class MenuCategoriesController extends BaseController
             $data=$request->post();
 //            dd($data);
             //向数据中增加登陆者的id
-            $data['store_id']=Auth::id();
+
+            $data['shop_id']=Auth::id();
 //            dd($data);
             MenuCategories::create($data);
             //返回

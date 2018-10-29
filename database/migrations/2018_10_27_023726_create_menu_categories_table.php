@@ -17,7 +17,7 @@ class CreateMenuCategoriesTable extends Migration
             $table->increments('id');
             $table->string('name')->comment('分类名');
             $table->string('type_accumulation')->comment('菜品编号');
-            $table->integer('store_id')->comment('所属商家id');
+            $table->integer('shup_id')->comment('所属商家id');
             $table->string('description')->comment('描述');
             $table->string('is_selected')->comment('是否是默认分类');
             $table->timestamps();

@@ -9,6 +9,7 @@
             <div class="form-group">
                 <select name="good_id" class="form-control">
                     <option value="">请选择分类</option>
+
                     @foreach($cate as $cates)
                         <option value="{{$cates->id}}">{{$cates->name}}</option>
                     @endforeach

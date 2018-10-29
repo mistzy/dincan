@@ -16,7 +16,7 @@
             <th>是否是默认分类</th>
             <th>操作</th>
         </tr>
-        @foreach($cates as $cate)
+        @foreach($dd as $cate)
             <tr>
                 <td>{{$cate->id}}</td>
                 <td>{{$cate->name}}</td>

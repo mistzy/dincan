@@ -63,7 +63,7 @@ class UserController extends BaseController
                     }
                 } else {
                     //跳转到申请店铺
-                    return redirect()->route("shop.shop.add")->with("danger","还未申请店铺");
+                    return redirect()->route("shop.shopp.add")->with("danger","还未申请店铺");
                 }
                 // session()->flash("success","登录成功");
                 //登录成功

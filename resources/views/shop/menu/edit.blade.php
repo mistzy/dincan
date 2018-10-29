@@ -15,9 +15,8 @@
             <label for="inputPassword3" class="col-sm-2 control-label">菜单分类</label>
             <div class="col-sm-10">
                 <select name="category_id" class="form-control">
-                    <option >--选择分类--</option>
                     @foreach($da as $das)
-                        <option @if($data->mc)selected @endif  value="{{$das->id}}">{{$das->name}}</option>
+                        <option @if($data->cate)selected @endif  value="{{$das->id}}">{{$das->name}}</option>
                     @endforeach
                 </select>
             </div>

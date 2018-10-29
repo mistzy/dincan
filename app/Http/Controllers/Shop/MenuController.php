@@ -15,7 +15,7 @@ class MenuController extends BaseController
     public function index(Request $request)
     {
         $id = Auth::id();
-        $cate = MenuCategories::all()->where("store_id", $id);
+        $cate = MenuCategories::all()->where("shop_id", $id);
 //        $query=Menu::all()->where("shop_id",$id);
         $url = $request->query();
         //接收数据
@@ -50,7 +50,7 @@ class MenuController extends BaseController
     {
         $id = Auth::id();
 
-        $data = MenuCategories::all()->where("store_id", $id);
+        $data = MenuCategories::all()->where("shop_id", $id);
         if ($request->isMethod("post")) {
             $this->validate($request, [
                 "goods_name" => "required|unique:menus",
@@ -84,7 +84,7 @@ class MenuController extends BaseController
         $data = Menu::find($id);
         //把分类读出来
         $id = Auth::id();
-        $da = MenuCategories::all()->where("store_id", $id);
+        $da = MenuCategories::all()->where("shop_id", $id);
 //        dd($da);
         if ($request->isMethod("post")) {
             $this->validate($request, [

@@ -48,7 +48,7 @@ class ShoppController extends BaseController
                     //设置用户id
                     $data['user_id'] = Auth::user()->id;
                     //接收图片
-                    $data['shop_img']=$request->file("shop_img")->store("images");
+//                    $data['shop_img']=$request->file("shop_img")->store("images");
 //         dd($data);
                     //3. 入库
                     Shopp::create($data);
@@ -78,14 +78,18 @@ class ShoppController extends BaseController
             //添加
             $data = $request->post();
             //接收图片
-            $logo = $request->file("shop_img");
-            if ($logo) {
-                //删除原来图片
-
-                Storage::delete($shop['shop_img']);
-                //赋值
-                $data['shop_img'] = $logo->store("images");
+//            $logo = $request->file("shop_img");
+//            if ($logo) {
+//                //删除原来图片
 //
+//                Storage::delete($shop['shop_img']);
+//                //赋值
+//                $data['shop_img'] = $logo->store("images");
+////
+//            }
+
+            if ($data['shop_img']==null){
+                unset($data['shop_img']);
             }
             //入库
 //            $data['shop_category_id']=3;
@@ -101,6 +105,23 @@ class ShoppController extends BaseController
         $cates= ShopCategory::all();
         return view('shop.shopp.edit',compact("shop","cates"));
 
+    }
+    public function upload(Request $request)
+    {
+        //处理上传
+        //dd($request->file("file"));
+        $file=$request->file("file");
+//        dd($file);
+        if ($file){
+            //上传
+            $url=$file->store("menu");
+            // var_dump($url);
+            //得到真实地址  加 http的址
+//            $url=Storage::url($url);
+            $data['url']=env("ALIYUN_OSS_URL").$url;
+            return $data;
+            ///var_dump($url);
+        }
     }
 
 

@@ -32,7 +32,13 @@
                 <td>{{$shop->id}}</td>
                 <td>{{$shop->shop_name}}</td>
                 <td>{{$name}}</td>
-                <td><img src="/images/{{$shop->shop_img}}" height="80" width="80"></td>
+                <td>
+                    @if($shop->shop_img)
+                        <img src="{{$shop->shop_img}}?x-oss-process=image/resize,m_fill,w_80,h_80">
+
+                        {{--<img src="{{env("ALIYUN_OSS_URL").$datas->goods_img}}?x-oss-process=image/resize,m_fill,w_80,h_80">--}}
+                    @endif
+                </td>
                 <td>{{$shop->shop_rating}}</td>
                 <td>
                     @if($shop->brand)
