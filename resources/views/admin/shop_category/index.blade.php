@@ -19,9 +19,7 @@
             <tr>
                 <td>{{$shop->id}}</td>
                 <td>{{$shop->name}}</td>
-                <td>
-                    <img src="/images/{{"$shop->imh"}}" width="40">
-                </td>
+                <td> <img src="{{$shop->imh}}?x-oss-process=image/resize,m_fill,w_80,h_80"></td>
                 <td>
                     @if ($shop->status)
                         正常

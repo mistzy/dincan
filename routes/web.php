@@ -44,6 +44,7 @@ Route::domain("shop.diancan.com")->namespace("Shop")->group(function (){
     Route::any("menu/add","MenuController@add")->name("shop.menu.add");
     Route::any("menu/edit/{id}","MenuController@edit")->name("shop.menu.edit");
     Route::get("menu/del/{id}","MenuController@del")->name("shop.menu.del");
+    Route::any("menu/upload", "MenuController@upload")->name('shop.menu.upload');
 
 
 
@@ -60,6 +61,7 @@ Route::domain("admin.diancan.com")->namespace("Admin")->group(function (){
     Route::any("shop_category/add","ShopCategoryController@add")->name("admin.shop_category.add");
     Route::any("shop_category/edit/{id}","ShopCategoryController@edit")->name("admin.shop_category.edit");
     Route::get('shop_category/del/{id}', "ShopCategoryController@del")->name('admin.shop_category.del');
+    Route::any("shop_category/upload", "ShopCategoryController@upload")->name('admin.shop_category.upload');
 
 
     //管理员登录/退出
@@ -82,11 +84,19 @@ Route::domain("admin.diancan.com")->namespace("Admin")->group(function (){
     Route::get('shop/del/{id}', "ShoppController@del")->name('admin.shop.del');
     Route::get('shop/sh/{id}', "ShoppController@sh")->name('admin.shop.sh');
     Route::get('shop/jy/{id}', "ShoppController@jy")->name('admin.shop.jy');
+    Route::any("shop/upload", "ShoppController@upload")->name('admin.shop.upload');
 
 
     //用户处理
     Route::get('user/index', "UserController@index")->name('admin.user.index');
     Route::get('user/del/{id}', "UserController@del")->name('admin.user.del');
+
+
+    //活动增删改查
+    Route::get('huodong/index', "HuodongController@index")->name('admin.huodong.index');
+    Route::any('huodong/add', "HuodongController@add")->name('admin.huodong.add');
+    Route::any('huodong/edit/{id}', "HuodongController@edit")->name('admin.huodong.edit');
+    Route::get('huodong/del/{id}', "HuodongController@del")->name('admin.huodong.del');
 
 
 

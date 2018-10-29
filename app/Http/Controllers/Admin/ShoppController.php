@@ -52,18 +52,21 @@ class ShoppController extends BaseController
         //添加
         $data = $request->post();
         //接收图片
-        $logo = $request->file("shop_img");
-        if ($logo) {
-            //删除原来图片
-            Storage::delete($shop['shop_img']);
-            //赋值
-            $data['shop_img'] = $logo->store("images");
-//
-        }
+//        $logo = $request->file("shop_img");
+//        if ($logo) {
+//            //删除原来图片
+//            Storage::delete($shop['shop_img']);
+//            //赋值
+//            $data['shop_img'] = $logo->store("images");
+////
+//        }
         //入库
 //            $data['shop_category_id']=3;
 //            $data['shop_name']=66;
         // dd($data);
+        if ($data['shop_img']==null) {
+            unset($data['shop_img']);
+        }
         if ($shop->update($data)) {
             //4. 跳转
             return redirect()->route("admin.shop.index")->with("success", "编辑成功");
@@ -76,38 +79,24 @@ class ShoppController extends BaseController
 
 }
 
-//    public function add(Request $request,$id){
-//
-//
-//            if ($request->isMethod("post")){
-//                //1. 验证
-//                $this->validate($request,[
-//
-//                ]);
-//
-//                //2. 接收数据
-//                $data=$request->post();
-//
-//                //3.设置店铺状态为0 未审核
-//                $data['status'] = 0;
-//                //设置用户id
-//                $data['user_id'] = Auth::user()->id;
-//                //接收图片
-//                $data['shop_img']=$request->file("shop_img")->store("images");
-////         dd($data);
-//                //3. 入库
-//                Shopp::create($data);
-//                //添加成功
-//                session()->flash('success',"添加成功等待审核");
-//
-//                //4. 跳转
-//                return redirect()->route("shop.index.index");
-//
-//            }
-//            //得到所有分类
-//            $fleis= ShopCategory::where("status",1)->get();
-//            return view("shop.shopp.add",compact("fleis"));
-//      }
+    public function upload(Request $request)
+    {
+        //处理上传
+        //dd($request->file("file"));
+        $file=$request->file("file");
+//        dd($file);
+        if ($file){
+            //上传
+            $url=$file->store("menu");
+            // var_dump($url);
+            //得到真实地址  加 http的址
+//            $url=Storage::url($url);
+            $data['url']=env("ALIYUN_OSS_URL").$url;
+            return $data;
+            ///var_dump($url);
+        }
+    }
+
 //后台添加店铺
     public function add(Request $request,$id)
     {
@@ -126,8 +115,8 @@ class ShoppController extends BaseController
             $data = $request->post();
             $data['user_id']=$id;
             $data['status']=1;
-            //接受图片
-            $data['shop_img']=$request->file("shop_img")->store("images");
+//            //接受图片
+//            $data['shop_img']=$request->file("shop_img")->store("images");
             //提交数据
             if (Shopp::create($data)) {
                 //提示

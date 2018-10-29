@@ -17,6 +17,7 @@
     <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
     <![endif]-->
 </head>
+<link rel="stylesheet" type="text/css" href="/webuploader/webuploader.css">
 <body>
 {{--引入头部--}}
 @include("admin.layouts._header")
@@ -24,8 +25,10 @@
 
 <div class="container-fluid">
 @include("admin.layouts._error")
+    @include('vendor.ueditor.assets')
 @include("admin.layouts._msg")
 @yield("content")
+
 
     {{--引入尾部--}}
     @include("admin.layouts._footer")
@@ -38,6 +41,8 @@
 <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 
-
+<!--引入JS-->
+<script type="text/javascript" src="/webuploader/webuploader.js"></script>
+@yield("js")
 </body>
 </html>

@@ -28,7 +28,7 @@ class ShopCategoryController extends BaseController
             //接收数据
             $data = $request->post();
             //接收图片
-            $data['imh']=$request->file("imh")->store("images");
+//            $data['imh']=$request->file("imh")->store("images");
             //入库
             ShopCategory::create($data);
             //跳转视图
@@ -53,13 +53,16 @@ class ShopCategoryController extends BaseController
             //添加
             $data = $request->post();
             //接收图片
-            $logo = $request->file("imh");
-            if ($logo) {
-                //删除原来图片
-                Storage::delete($shops['imh']);
-                //赋值
-                $data['imh'] = $logo->store("images");
-//
+//            $logo = $request->file("imh");
+////            if ($logo) {
+////                //删除原来图片
+////                Storage::delete($shops['imh']);
+////                //赋值
+////                $data['imh'] = $logo->store("images");
+//////
+////            }
+            if ($data['imh']==null) {
+                unset($data['imh']);
             }
             if ($shops->update($data)) {
                 //跳转
@@ -88,6 +91,25 @@ class ShopCategoryController extends BaseController
 
         //跳转
         return redirect()->route('admin.shop_category.index')->with('success',"删除成功");
+    }
+
+
+    public function upload(Request $request)
+    {
+        //处理上传
+        //dd($request->file("file"));
+        $file=$request->file("file");
+//        dd($file);
+        if ($file){
+            //上传
+            $url=$file->store("menu");
+            // var_dump($url);
+            //得到真实地址  加 http的址
+//            $url=Storage::url($url);
+            $data['url']=env("ALIYUN_OSS_URL").$url;
+            return $data;
+            ///var_dump($url);
+        }
     }
 
 

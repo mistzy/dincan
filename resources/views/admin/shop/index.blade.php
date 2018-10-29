@@ -32,7 +32,7 @@
                 <td>{{$shop->id}}</td>
                 <td>{{$shop->shop_name}}</td>
                 <td>{{$shop->cate["name"]}}</td>
-                <td><img src="/images/{{$shop->shop_img}}" height="80" width="80"></td>
+                <td> <img src="{{$shop->shop_img}}?x-oss-process=image/resize,m_fill,w_80,h_80"></td>
                 <td>{{$shop->shop_rating}}</td>
                 <td>
                     @if($shop->brand)

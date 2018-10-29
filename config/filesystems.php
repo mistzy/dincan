@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DRIVER', 'public'),
+    'default' => env('FILESYSTEM_DRIVER', 'oss'),
 
     /*
     |--------------------------------------------------------------------------
@@ -42,6 +42,15 @@ return [
     */
 
     'disks' => [
+        'oss' => [
+            'driver'        => 'oss',
+            'access_id'     => 'LTAIojnAkeAASZYk',//账号
+            'access_key'    => 'uIEW23tVx3TSsEqucytnszOu3F9Qtc',//密钥
+            'bucket'        => 'diancan1',//空间名称
+            'endpoint'      => 'oss-cn-beijing.aliyuncs.com', // OSS 外网节点或自定义外部域名
+
+        ],
+
 
         'local' => [
             'driver' => 'local',

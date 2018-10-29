@@ -7,6 +7,7 @@ use App\Models\MenuCategories;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class MenuController extends BaseController
 {
@@ -62,8 +63,9 @@ class MenuController extends BaseController
             ]);
             $da = $request->post();
 //           dd($da);
-            $file = $request->file("goods_img");
-            $da['goods_img'] = $file->store("images");
+
+//            $file = $request->file("goods_img");
+//            $da['goods_img'] = $file->store("images");
             $da['shop_id'] = Auth::id();
 //           dd($da);
             Menu::create($da);
@@ -94,15 +96,19 @@ class MenuController extends BaseController
                 "status" => "required"
             ]);
             $da = $request->post();
-            $file = $request->file("goods_img");
-            if ($file == null) {
-                $da['goods_img'] = $data->goods_img;
-            } else {
-//                dd($data->goods_img);
-                unlink($data->goods_img);
-                $da['goods_img'] = $file->store("images");
+//            $file = $request->file("goods_img");
+//            //接收图片
+//            $logo = $request->file("goods_img");
+//            if ($logo) {
+//                //删除原来图片
+//                Storage::delete($data['goods_img']);
+//                //赋值
+//                $data['goods_img'] = $logo->store("images");
+////
+//            }
+            if ($da['goods_img']==null){
+                unset($da['goods_img']);
             }
-
             $da['shop_id'] = Auth::id();
 //           dd($da);
             $data->update($da);
@@ -122,11 +128,30 @@ class MenuController extends BaseController
         //查询一条
         $on = Menu::find($id);
         $img = $on['goods_img'];
-        unlink($img);
+//        unlink($img);
         $on->delete();
         //返回
         session()->flash("success", "删除成功");
         return redirect()->route("shop.menu.index");
     }
+
+    public function upload(Request $request)
+    {
+        //处理上传
+        //dd($request->file("file"));
+        $file=$request->file("file");
+//        dd($file);
+        if ($file){
+            //上传
+            $url=$file->store("menu");
+           // var_dump($url);
+            //得到真实地址  加 http的址
+//            $url=Storage::url($url);
+            $data['url']=env("ALIYUN_OSS_URL").$url;
+            return $data;
+            ///var_dump($url);
+        }
+    }
+
 
 }

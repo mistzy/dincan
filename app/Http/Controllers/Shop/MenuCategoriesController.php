@@ -31,6 +31,7 @@ class MenuCategoriesController extends BaseController
                 "description"=>"required"
             ]);
             $data=$request->post();
+//            dd($data);
             //向数据中增加登陆者的id
             $data['store_id']=Auth::id();
 //            dd($data);

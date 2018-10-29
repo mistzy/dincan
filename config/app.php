@@ -163,6 +163,8 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        //这是加的
+        Overtrue\LaravelUEditor\UEditorServiceProvider::class,
 
         /*
          * Package Service Providers...
