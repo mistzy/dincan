@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Models\MenuCategories;
+use App\Models\Shopp;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -13,9 +14,9 @@ class MenuCategoriesController extends BaseController
     //显示数据
     public function index()
     {
-        $id=Auth::id();
-//        dd($id);
-        $dd=MenuCategories::all()->where("shop_id",$id);
+        $id=Auth::user()->id;
+        $shopp = Shopp::where('user_id',$id)->first();
+        $dd=MenuCategories::all()->where("shop_id",$shopp->id);
 //        dd($dd);
 //        dd($data);
         return view("shop.cate.index",compact("dd"));
@@ -24,6 +25,8 @@ class MenuCategoriesController extends BaseController
 //增加
     public function add(Request $request)
     {
+        $id=Auth::user()->id;
+        $shopp = Shopp::where('user_id',$id)->first();
         if($request->isMethod("post")){
 //            dd(11);
 
@@ -36,7 +39,7 @@ class MenuCategoriesController extends BaseController
 //            dd($data);
             //向数据中增加登陆者的id
 
-            $data['shop_id']=Auth::id();
+            $data['shop_id']=$shopp->id;
 //            dd($data);
             MenuCategories::create($data);
             //返回

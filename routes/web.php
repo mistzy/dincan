@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get("test",function(){
+    return \Illuminate\Support\Facades\Cache::get("trl_");
+});
+
 //商户路由
 Route::domain("shop.diancan.com")->namespace("Shop")->group(function (){
     //region 商户首页

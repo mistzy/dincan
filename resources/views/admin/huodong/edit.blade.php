@@ -25,14 +25,14 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">有效时间</label>
             <div class="col-sm-10">
-                <input type="datetime-local" name="start_time" class="form-control">
+                <input type="datetime-local" name="start_time"   value="{{$hd->start_time}}" class="form-control">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">结束时间</label>
             <div class="col-sm-10">
-                <input type="datetime-local" name="end_time" class="form-control">
+                <input type="datetime-local" name="end_time" value="{{$hd->end_time}}" class="form-control">
             </div>
         </div>
 

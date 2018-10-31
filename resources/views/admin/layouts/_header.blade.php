@@ -11,6 +11,19 @@
             <a class="navbar-brand" href="#">浓森不绿</a>
         </div>
 
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">管理员管理 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{route("admin.admin.index")}}">查看</a></li>
+                        <li><a href="{{route("admin.admin.add")}}">添加副管理员</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
@@ -23,6 +36,8 @@
                 </li>
             </ul>
 
+
+
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
@@ -33,6 +48,8 @@
                         </ul>
                     </li>
                 </ul>
+
+
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">

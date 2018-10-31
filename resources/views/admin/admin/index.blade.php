@@ -3,7 +3,7 @@
 @section("title","店铺注册")
 
 @section("content")
-    <a href="{{route('admin.admin.add')}}" class="btn btn-primary">添加</a>
+
     <table class="table table-bordered">
         <tr>
             <th>Id</th>

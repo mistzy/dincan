@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Shop;
 
 use App\Models\Menu;
 use App\Models\MenuCategories;
+use App\Models\Shopp;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -14,8 +15,10 @@ class MenuController extends BaseController
 //显示
     public function index(Request $request)
     {
-        $id = Auth::id();
-        $cate = MenuCategories::all()->where("shop_id", $id);
+        $id = Auth::user()->id;
+        //查找当前用户店铺
+        $shopp = Shopp::where('user_id',$id)->first();
+        $cate = MenuCategories::all()->where("shop_id", $shopp->id);
 //        $query=Menu::all()->where("shop_id",$id);
         $url = $request->query();
         //接收数据
@@ -24,7 +27,7 @@ class MenuController extends BaseController
         $min = $request->get("minPrice");
         $max = $request->get("maxPrice");
         //得到所有并要有分页
-        $query = Menu::orderBy("id")->where("shop_id", $id);
+        $query = Menu::orderBy("id")->where("shop_id", $shopp->id);
 
         if ($keyword !== null) {
             $query->where("goods_name", "like", "%{$keyword}%");
@@ -48,9 +51,9 @@ class MenuController extends BaseController
 //增加
     public function add(Request $request)
     {
-        $id = Auth::id();
-
-        $data = MenuCategories::all()->where("shop_id", $id);
+        $id = Auth::user()->id;
+        $shopp = Shopp::where('user_id',$id)->first();
+        $data = MenuCategories::all()->where("shop_id", $shopp->id);
         if ($request->isMethod("post")) {
             $this->validate($request, [
                 "goods_name" => "required|unique:menus",
@@ -66,7 +69,7 @@ class MenuController extends BaseController
 
 //            $file = $request->file("goods_img");
 //            $da['goods_img'] = $file->store("images");
-            $da['shop_id'] = Auth::id();
+            $da['shop_id'] = $shopp->id;
 //           dd($da);
             Menu::create($da);
             //返回
