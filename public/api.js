@@ -10,13 +10,13 @@ window.api = {
   // 忘记密码接口
   forgetPassword: '/api/member/forget',
   // 地址列表接口
-  addressList: '/addressList.php',
+  addressList: '/api/addresslist/index',
   // 指定地址接口
-  address: '/address.php',
+  address: '/api/addresslist/echo',
   // 保存新增地址接口
-  addAddress: '/addAddress.php',
+  addAddress: '/api/addresslist/add',
   // 保存修改地址接口
-  editAddress: '/editAddress.php',
+  editAddress: '/api/addresslist/edit',
   // 获得订单列表接口
   orderList: '/orderList.php',
   // 获得指定订单接口
@@ -26,13 +26,13 @@ window.api = {
   // 获得指定商家接口
   business: '/api/shopp/detail',
   // 保存购物车接口
-  addCart: '/addCart.php',
+  addCart: '/api/cart/add',
   // 获取购物车数据接口
-  cart: '/cart.php',
+  cart: '/api/cart/index',
   // 添加订单接口
   addOrder: '/addorder.php',
   // 支付接口
   pay: '/pay.php',
   // 用户详情接口
-  userDetail: 'http://www.diancan.com/api/member/detail'
+  userDetail: '/api/member/detail'
 };
