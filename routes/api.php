@@ -50,6 +50,18 @@ Route::post("cart/add","Api\CartController@add");
 Route::get("cart/index","Api\CartController@index");
 //endregion
 
+// region 订单
+Route::post("order/add","Api\OrderController@add");
+Route::get("order/detail","Api\OrderController@detail");
+Route::get("order/index","Api\OrderController@index");
+Route::post("order/pay","Api\OrderController@pay");
+Route::get("order/wxPay","Api\OrderController@wxPay");
+Route::get("order/status","Api\OrderController@status");
+Route::post("order/ok","Api\OrderController@ok");
+
+
+
+
 
 
 

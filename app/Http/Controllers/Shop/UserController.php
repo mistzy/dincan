@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Shop;
 
+use App\Models\Event;
+use App\Models\EventPrize;
+use App\Models\EventUser;
+use App\Models\Huodong;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redis;
 
 class UserController extends BaseController
 {
@@ -108,6 +113,77 @@ class UserController extends BaseController
         return view('shop.user.edit');
 
     }
+    //活动
+    public function active()
+    {
+        //当前时间
+        $time = date('Y-m-d H:i:s', time());
+//dd($time);
+        $exercise = Huodong::where("end_time", ">", $time)->get();
+
+//        dd($exercise);
+
+        return view("shop.user.active", compact("exercise"));
+    }
+
+    //抽奖
+    public function luck()
+    {
+        //显示抽奖活动，遍历出活动，在视图里面写上参与
+        $active = Event::all();
+//        dd($active);
+        return view("shop.user.luck", compact("active"));
+
+    }
+
+    //参与
+    public function inter($id)
+    {
+        //商户id
+        $shopId = Auth::id();
+        //活动id就是id
+        $data['user_id'] = $shopId;
+        $data['event_id'] = $id;
+
+        //判断人数限制
+        //找出该活动的限制人数
+        $limitNum =Event::where('id',$id)->first()->num;
+//        dd($limitNum);
+        //把限制人得数据存到redis
+        Redis::set("event_num:$id",$limitNum);
+        //用redis来做大并发问题或者说抢购报名问题
+        //限制人数
+        $num = Redis::get("event_num:".$id);
+        //报名人数
+        $user =Redis::scard("event:".$id);
+        //如果redis里面有就用redis没有就数据库找
+        if($user){
+            $user =Redis::scard("event:".$id);
+        }else{
+            //数据库得报名数
+            $user=EventUser::where("user_id",$shopId)->count();
+        }
+        //判断
+        if($user<$num){
+            //存reids 集合 用redis得集合不会出现重复得
+            Redis::sadd("event:".$id,$shopId);
+            return redirect()->route("shop.user.luck")->with("info","参与成功");
+        }else{
+            return redirect()->route("shop.user.luck")->with("danger","人数已满");
+        }
+
+    }
+
+    //中奖名单
+    public function prize()
+    {
+        $prize = EventPrize::all();
+
+        return view("shop.user.prize", compact("prize"));
+    }
+
+
+
 
 
 }

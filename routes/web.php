@@ -16,7 +16,17 @@ Route::get('/', function () {
 });
 
 Route::get("test",function(){
-    return \Illuminate\Support\Facades\Cache::get("trl_");
+//    return \Illuminate\Support\Facades\Cache::get("trl_");
+    $shopName="互联网学院";
+    $to = '2399418940@qq.com';//收件人
+    $subject = $shopName.' 审核通知';//邮件标题
+    \Illuminate\Support\Facades\Mail::send(
+        'emails',
+        compact("shopName"),
+        function ($message) use($to, $subject) {
+            $message->to($to)->subject($subject);
+        }
+    );
 });
 
 //商户路由
@@ -50,6 +60,28 @@ Route::domain("shop.diancan.com")->namespace("Shop")->group(function (){
     Route::any("menu/edit/{id}","MenuController@edit")->name("shop.menu.edit");
     Route::get("menu/del/{id}","MenuController@del")->name("shop.menu.del");
     Route::any("menu/upload", "MenuController@upload")->name('shop.menu.upload');
+
+
+    //订单查看
+    Route::get("order/index","OrderController@index")->name("shop.order.index");
+    Route::get('order/day', "OrderController@day")->name('shop.order.day');
+    Route::get('order/total', "OrderController@total")->name('shop.order.total');
+    Route::get('order/months', "OrderController@months")->name('shop.order.months');
+    Route::get('order/changeStatus/{id}/{status}', "OrderController@changeStatus")->name('shop.order.changeStatus');
+    Route::get('order/detail/{id}', "OrderController@detail")->name('shop.order.detail');
+    //菜品总计
+    Route::get('order/cday', "OrderController@cday")->name('shop.order.cday');
+
+    //抽奖活动
+    Route::any("user/active", "UserController@active")->name("shop.user.active");
+    //   抽奖活动
+    Route::any("user/luck", "UserController@luck")->name("shop.user.luck");
+    //  参与
+    Route::any("user/inter/{id}", "UserController@inter")->name("shop.user.inter");
+    //   中奖名单
+    Route::any("user/prize", "UserController@prize")->name("shop.user.prize");
+
+
 
 
 
@@ -102,6 +134,47 @@ Route::domain("admin.diancan.com")->namespace("Admin")->group(function (){
     Route::any('huodong/add', "HuodongController@add")->name('admin.huodong.add');
     Route::any('huodong/edit/{id}', "HuodongController@edit")->name('admin.huodong.edit');
     Route::get('huodong/del/{id}', "HuodongController@del")->name('admin.huodong.del');
+
+
+    //会员管理
+    Route::get('member/index', "MemberController@index")->name('admin.member.index');
+
+   //订单
+    Route::get('/order/month','OrderController@month')->name('admin.order.month');
+    Route::any('/order/day','OrderController@day')->name('admin.order.day');
+    Route::any('/order/total','OrderController@total')->name('admin.order.total');
+
+
+    //权限管理
+    Route::get('per/index', "PerController@index")->name('admin.per.index');
+    Route::any('per/add', "PerController@add")->name('admin.per.add');
+    Route::any('per/edit/{id}', "PerController@edit")->name('admin.per.edit');
+    Route::get('per/del/{id}', "PerController@del")->name('admin.per.del');
+
+
+    //角色管理
+    //权限管理
+    Route::get('role/index', "RoleController@index")->name('admin.role.index');
+    Route::any('role/add', "RoleController@add")->name('admin.role.add');
+    Route::any('role/edit/{id}', "RoleController@edit")->name('admin.role.edit');
+    Route::get('role/del/{id}', "RoleController@del")->name('admin.role.del');
+
+
+    //导航菜单管理
+    Route::any('nav/add', "NavController@add")->name('admin.nav.add');
+
+    //抽奖活动管理
+    Route::get('event/index', "EventController@index")->name('admin.event.index');
+    Route::any('event/add', "EventController@add")->name('admin.event.add');
+    Route::any('event/edit/{id}', "EventController@edit")->name('admin.event.edit');
+    Route::get('event/del/{id}', "EventController@del")->name('admin.event.del');
+    Route::get('event/kj/{id}', "EventController@kj")->name('admin.event.kj');
+
+    //抽奖活动奖品
+    Route::get('prize/index', "EventPrizeController@index")->name('admin.prize.index');
+    Route::any('prize/add', "EventPrizeController@add")->name('admin.prize.add');
+    Route::any('prize/edit/{id}', "EventPrizeController@edit")->name('admin.prize.edit');
+    Route::get('prize/del/{id}', "EventPrizeController@del")->name('admin.prize.del');
 
 
 

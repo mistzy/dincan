@@ -42,6 +42,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
     public function shopp(){
         return $this->hasOne(Shopp::class,"user_id");
     }

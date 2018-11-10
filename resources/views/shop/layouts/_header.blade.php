@@ -45,6 +45,57 @@
                 </li>
             </ul>
 
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">订单管理 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{route("shop.order.index")}}">查看订单</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">订单量统计 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{route("shop.order.day")}}">每日</a></li>
+                                <li><a href="{{route("shop.order.months")}}">每月</a></li>
+                                <li><a href="{{route("shop.order.total")}}">总订单数</a></li>
+
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">菜品消量统计 <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{route("shop.order.cday")}}">每日</a></li>
+                                    <li><a href="{{route("shop.order.months")}}">每月</a></li>
+
+                                </ul>
+                            </li>
+                        </ul>
+
+
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">抽奖报名管理 <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{route("shop.user.active")}}">查看</a></li>
+                                        <li><a href="{{route("shop.user.luck")}}">参加抽奖活动</a></li>
+                                        <li><a href="{{route("shop.user.prize")}}">中奖者</a></li>
+
+
+                                    </ul>
+                                </li>
+                            </ul>
+
 
 
 

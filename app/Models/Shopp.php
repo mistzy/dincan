@@ -48,6 +48,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Shopp whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Shopp whereZhun($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\ShopCategory $cate
  */
 class Shopp extends Model
 {

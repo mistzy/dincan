@@ -21,6 +21,16 @@ class ShoppController extends BaseController
     //审核
     public function sh($id){
 
+        $shopName="互联网学院";
+        $to = '2399418940@qq.com';//收件人
+        $subject = $shopName.' 审核通知';//邮件标题
+        \Illuminate\Support\Facades\Mail::send(
+            'emails',
+            compact("shopName"),
+            function ($message) use($to, $subject) {
+                $message->to($to)->subject($subject);
+            }
+        );
         $shop =Shopp::findOrFail($id);
         $shop->status= 1;
         $shop->save();

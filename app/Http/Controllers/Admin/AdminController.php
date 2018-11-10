@@ -6,6 +6,7 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 use Symfony\Component\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,12 +36,17 @@ class AdminController extends BaseController
         //3.密码加密
         $data['password'] = bcrypt($data['password']);
         //4.添加
-        Admin::create($data);
+        $admin = Admin::create($data);
+        //给用户对象添加角色 同步角色
+        $admin->syncRoles($request->post('role'));
+
         //5.跳转
-        return redirect()->route("admin.admin.index")->with("success", "添加成功");
+        return redirect()->route("admin.admin.index")->with("success", "创建成功");
 
     }
-    return view("admin.admin.add");
+        //得到所有权限
+        $roles=Role::all();
+        return view("admin.admin.add",compact('roles'));
 }
 
 
